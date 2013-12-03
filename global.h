@@ -4,12 +4,12 @@
 #define GLOBAL_H_
 
 // Map size of N x N
-#define N 20
+#define N 10
 
 // Input image size of DIM x DIM, also the same for weight of each neuron
 #define DIM 200
 
-#define ITERATION_NUMBER 40
+#define ITERATION_NUMBER 2
 
 extern float* devSOM;
 

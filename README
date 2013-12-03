@@ -1,0 +1,6 @@
+Self-organizing map for face recognition
+
+Implementation in CUDA C.
+
+Using the MIT-CBCL-facerec-database.
+

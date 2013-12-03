@@ -86,20 +86,20 @@ static void Train() {
 	// Train
 	fprintf(stderr, "Training...\n");
 	epoch = 0.0;
-	//while (epoch < ITERATION_NUMBER) {
-	fprintf(stderr, "\r%d/%d", (int) epoch + 1, (int) ITERATION_NUMBER);
-	std::random_shuffle(training_files.begin(), training_files.end());
 	size_t T = training_files.size();
-	for (size_t i = 0; i < T; ++i) {
-		cv::gpu::GpuMat dev_image(LoadImage(TRAINING_DIR, training_files[i]));
-		if (dev_image.empty())
-			continue;
-		cv::Point2f best = find_best(dev_image.data);
-		update_neighborhood(dev_image.data, epoch, best);
-
-//		break;
+	while (epoch < ITERATION_NUMBER) {
+		fprintf(stderr, "\r%d/%d", (int) epoch + 1, (int) ITERATION_NUMBER);
+		std::random_shuffle(training_files.begin(), training_files.end());
+		for (size_t i = 0; i < T; ++i) {
+			cv::gpu::GpuMat dev_image(
+					LoadImage(TRAINING_DIR, training_files[i]));
+			if (dev_image.empty())
+				continue;
+			cv::Point2f best = find_best(dev_image.data);
+			update_neighborhood(dev_image.data, epoch, best);
+		}
+		epoch += 1.0;
 	}
-	epoch += 1.0;
 	fprintf(stderr, "\nComputing patterns...\n");
 	for (size_t i = 0; i < T; ++i) {
 		const std::string& name = training_files[i];
